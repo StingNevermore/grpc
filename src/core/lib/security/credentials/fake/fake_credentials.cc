@@ -16,6 +16,8 @@
  *
  */
 
+#include <grpc/support/port_platform.h>
+
 #include "src/core/lib/security/credentials/fake/fake_credentials.h"
 
 #include <string.h>
@@ -87,11 +89,7 @@ const char* grpc_fake_transport_get_expected_targets(
     const grpc_channel_args* args) {
   const grpc_arg* expected_target_arg =
       grpc_channel_args_find(args, GRPC_ARG_FAKE_SECURITY_EXPECTED_TARGETS);
-  if (expected_target_arg != nullptr &&
-      expected_target_arg->type == GRPC_ARG_STRING) {
-    return expected_target_arg->value.string;
-  }
-  return nullptr;
+  return grpc_channel_arg_get_string(expected_target_arg);
 }
 
 /* -- Metadata-only test credentials. -- */

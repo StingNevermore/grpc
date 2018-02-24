@@ -1,6 +1,6 @@
 /*
  *
- * Copyright 2016 gRPC authors.
+ * Copyright 2017 gRPC authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,14 +16,22 @@
  *
  */
 
-#ifndef GRPC_CORE_EXT_FILTERS_CLIENT_CHANNEL_LB_POLICY_GRPCLB_GRPCLB_H
-#define GRPC_CORE_EXT_FILTERS_CLIENT_CHANNEL_LB_POLICY_GRPCLB_GRPCLB_H
+#ifndef GRPCPP_IMPL_CHANNEL_ARGUMENT_OPTION_H
+#define GRPCPP_IMPL_CHANNEL_ARGUMENT_OPTION_H
 
-#include "src/core/ext/filters/client_channel/lb_policy_factory.h"
+#include <map>
+#include <memory>
 
-/** Returns a load balancing factory for the glb policy, which tries to connect
- * to a load balancing server to decide the next successfully connected
- * subchannel to pick. */
-grpc_lb_policy_factory* grpc_glb_lb_factory_create();
+#include <grpcpp/impl/server_builder_option.h>
+#include <grpcpp/support/channel_arguments.h>
 
-#endif /* GRPC_CORE_EXT_FILTERS_CLIENT_CHANNEL_LB_POLICY_GRPCLB_GRPCLB_H */
+namespace grpc {
+
+std::unique_ptr<ServerBuilderOption> MakeChannelArgumentOption(
+    const grpc::string& name, const grpc::string& value);
+std::unique_ptr<ServerBuilderOption> MakeChannelArgumentOption(
+    const grpc::string& name, int value);
+
+}  // namespace grpc
+
+#endif  // GRPCPP_IMPL_CHANNEL_ARGUMENT_OPTION_H
